@@ -27,10 +27,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-#glove_vectors = gensim.downloader.load('glove-wiki-gigaword-50')
+glove_vectors = gensim.downloader.load('glove-wiki-gigaword-50')
 
-#with open('glove50','wb') as f:
-#    pickle.dump(glove_vectors,f)
+with open('glove50','wb') as f:
+    pickle.dump(glove_vectors,f)
 with open('glove50','rb') as f:
     glove_vectors = pickle.load(f)
 
@@ -45,4 +45,3 @@ async def related(word):
 	words = list(df['words'])
 	probs = [round(x,2) for x in list(df['sim'])]
 	return {'words':words, 'probs':probs}
-

@@ -59,14 +59,7 @@ function App() {
 			setTarget(values.word);
 			console.log(values.word);
 	  },
-		onChange: (values,actions)=>{
-                        setTarget(values.word);
-                        console.log(values.word);
-                        getList(target);
-			actions.setSubmitting(false);
-	  
-	  },
-        });
+    });
         return(
         <form onSubmit = {formik.handleSubmit}>
          <label htmlFor='word'>Word Searched For</label>
