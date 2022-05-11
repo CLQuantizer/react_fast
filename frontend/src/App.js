@@ -17,10 +17,15 @@ import { Logo } from './Logo';
 
 
 function App() {
-	
+   // set the title of the page 
+	 document.title='Word Relatedness API'
+
+   // define the states
    const [isLoading,setLoading] = useState(true);
    const [data, setData] = useState([]);
    const [target, setTarget] = useState([]);
+
+   // function that converts JSON data into list
    const makeData = (words,probs)=>{
 	   let results = [];
 	   for(let i=0;i<words.length;i++){
@@ -29,6 +34,7 @@ function App() {
 	   return results
    }  
 
+   // function that does POST with target word
    const getList = async (target)=>{
 	   try{
 		var url = 'http://127.0.0.1:8000/related/'+target;
@@ -45,28 +51,27 @@ function App() {
 	   }
 	}
 
+    // react hook
     useEffect(() => {
       if(target==''){setTarget('whatever');
       console.log('initial rendering, setting the word to \'whatever\'')}
       else{getList(target);console.log('the word has been set to: '+target)}
  	 }, [target]);
-  
+   
+   // another component?
    const SearchForm=()=>{
         const formik = useFormik({
-         initialValues:{
-                word: target,
-          },
-		onSubmit:(values,actions)=>{
-			actions.setSubmitting(false);
-			setTarget(values.word);
-			console.log('now submitting the word: '+values.word);
-	  },
+          initialValues:{word: target,},
+		      onSubmit:(values,actions)=>{
+      			actions.setSubmitting(false);
+      			setTarget(values.word);
+      			console.log('now submitting the word: '+values.word);
+	         },
     });
         return(
         <form onSubmit = {formik.handleSubmit}>
          <label htmlFor='word'>Enter a word to search for its 15 most related words<br/></label>
-         <Input
-            id ='word'
+         <Input id ='word'
             name = 'word'
             type = 'word'
             width = 'auto'
@@ -85,9 +90,9 @@ function App() {
           <ColorModeSwitcher justifySelf="flex-end" />
           <VStack spacing={8}>
             <Logo h="15vmin" pointerEvents="none" /> 
-          <SearchForm/>
-	  <DataTable data={data}/>
-	  </VStack>
+              <SearchForm/>
+    	        <DataTable data={data}/>
+	        </VStack>
         </Grid>
       </Box>
     </ChakraProvider>
