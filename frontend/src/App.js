@@ -45,7 +45,8 @@ function App() {
 	}
 
     useEffect(() => {
-	    getList(target);
+      if(target==''){setTarget('whatever');}
+      else{getList(target);}
  	 }, [target]);
   
    const SearchForm=()=>{
@@ -55,7 +56,6 @@ function App() {
           },
 		onSubmit:(values,actions)=>{
 			actions.setSubmitting(false);
-			getList(target);
 			setTarget(values.word);
 			console.log(values.word);
 	  },
