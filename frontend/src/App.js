@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useFormik,Formik,Field,Form} from 'formik';
-import DataTable from './table';
+import DataTable from './DataTable';
 import {
   ChakraProvider,
   Button,
@@ -34,19 +34,21 @@ function App() {
 		var url = 'http://127.0.0.1:8000/related/'+target;
 		const response = await fetch(url,{method:'POST'})
 		const json = await response.json();
-		console.log(json);
 		var results = makeData(json.words,json.probs);
-		console.log(results);
 	        setData(results);
+          console.log('the response for \''+ target +'\' from API is:');
+          console.log(results);
 	   }catch(error){console.error(error);
 	   }finally{
-		setLoading(false);
+      console.log('generating the DataTable')
+		  setLoading(false);
 	   }
 	}
 
     useEffect(() => {
-      if(target==''){setTarget('whatever');}
-      else{getList(target);}
+      if(target==''){setTarget('whatever');
+      console.log('initial rendering, setting the word to \'whatever\'')}
+      else{getList(target);console.log('the word has been set to: '+target)}
  	 }, [target]);
   
    const SearchForm=()=>{
@@ -57,20 +59,21 @@ function App() {
 		onSubmit:(values,actions)=>{
 			actions.setSubmitting(false);
 			setTarget(values.word);
-			console.log(values.word);
+			console.log('now submitting the word: '+values.word);
 	  },
     });
         return(
         <form onSubmit = {formik.handleSubmit}>
-         <label htmlFor='word'>Word Searched For</label>
+         <label htmlFor='word'>Enter a word to search for its 15 most related words<br/></label>
          <Input
             id ='word'
             name = 'word'
             type = 'word'
+            width = 'auto'
             onChange = {formik.handleChange}
             value = {formik.values.word}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Search</Button>
         </form>
         );
     };

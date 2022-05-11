@@ -12,7 +12,7 @@ function DataTable({data}) {
         accessor: 'word',
       },
       {
-        Header: 'probabilities',
+        Header: 'Relatedness (0,1)',
         accessor: 'prob',
       } 
     ],
