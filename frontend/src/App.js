@@ -46,12 +46,12 @@ function App() {
 
     useEffect(() => {
 	    getList(target);
- 	 }, []);
+ 	 }, [target]);
   
    const SearchForm=()=>{
         const formik = useFormik({
          initialValues:{
-                word: 'whatever',
+                word: target,
           },
 		onSubmit:(values,actions)=>{
 			actions.setSubmitting(false);
