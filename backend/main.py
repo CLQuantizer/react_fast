@@ -1,4 +1,3 @@
-import pandas as pd
 import gensim.downloader
 import pickle
 from typing import List
@@ -7,8 +6,10 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from fastapi import Depends,Request, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from journal.journal_router import router as JournalRouter
 
 app = FastAPI()
+app.include_router(JournalRouter, tags=["Journal"], prefix="/journal")
 
 origins = [
     "http://localhost:3000",
@@ -38,13 +39,14 @@ with open('glove50','rb') as f:
 async def read_main():
     return {"msg": "Hello World"}
 
-@app.post("/related/{Word}")
+@app.get("/related/{Word}")
 async def related(Word):
     word = Word.lower().strip()
     if word in glove_vectors.key_to_index:
-        df = pd.DataFrame(glove_vectors.most_similar(word,topn=15),columns = ['words','prob'])
-        words = list(df['words'])
-        probs = [round(x,2) for x in list(df['prob'])]
+        wordsnprobs= glove_vectors.most_similar(word,topn=15)
+        words = [pair[0] for pair in wordsnprobs]
+        probs = [round(pair[1],2) for pair in wordsnprobs]
+
     else:
         words = ['Sorry 🥵', 'This input', 'is not a word']
         probs = ['','\''+Word+'\'', 'or is too rare for this little app']

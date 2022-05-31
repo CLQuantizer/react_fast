@@ -38,7 +38,7 @@ function App() {
    const getList = async (target)=>{
 	   try{
 		var url = 'http://127.0.0.1:8000/related/'+target;
-		const response = await fetch(url,{method:'POST'})
+		const response = await fetch(url,{method:'GET'})
 		const json = await response.json();
 		var results = makeData(json.words,json.probs);
 	        setData(results);
