@@ -16,7 +16,6 @@ import {
   UnorderedList,
 } from '@chakra-ui/react';
   
-import { ColorModeSwitcher } from './ColorModeSwitcher';
 function Journals(journals){
 	const [ListOfJournals,setListOfJournal] = useState([]);
    	async function getData(){
@@ -38,10 +37,8 @@ function Journals(journals){
 	
 
 	return (
-	<ChakraProvider theme={theme}>
       <Box textAlign="left" fontSize="xl">
         <Grid minH="100vh" p={3}>
-          <ColorModeSwitcher justifySelf="flex-end" />
           <VStack spacing={8}>
           	<OrderedList fontSize='3xl'>
           		{ListOfJournals.map((j)=>
@@ -53,7 +50,6 @@ function Journals(journals){
 	        </VStack>
         </Grid>
       </Box>
-    </ChakraProvider>
 		
 	);	
 }
