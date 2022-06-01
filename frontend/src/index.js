@@ -27,21 +27,27 @@ ReactDOM.render(
     </Grid>
 
     <Grid templateColumns='repeat(3, 1fr)' gap={6}>
-      <GridItem w='100%' h='10' bg='teal'>
-        <Link theme={theme} href = 'http://localhost:3000/'>Home</Link>
+      <GridItem w='100%' h='10' >
+        <Button variant = 'outline'>
+          <Link href = 'http://localhost:3000/'>Home</Link>
+        </Button>
       </GridItem>
 
-      <GridItem w='100%' h='10' bg='teal'>
-        <Link theme={theme} href = 'http://localhost:3000/journals/'>Journals</Link>
+      <GridItem w='100%' h='10'>
+        <Button variant = 'outline'>
+          <Link href = 'http://localhost:3000/journals/'>Journals</Link>
+        </Button>
       </GridItem>
 
-      <GridItem w='100%' h='10' bg='teal'>
-        <Link theme={theme}  href = 'https://google.co.uk'>Google</Link>
+      <GridItem w='100%' h='10'>
+        <Button variant = 'outline'>
+          <Link href = 'https://google.co.uk'>Google</Link>
+        </Button>
       </GridItem>
 
     </Grid>
   </Box>
-
+  <br/>
   
     <BrowserRouter>
     <Routes>
