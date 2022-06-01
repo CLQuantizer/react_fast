@@ -39,17 +39,15 @@ function Journals(journals){
 
 	return (
 	<ChakraProvider theme={theme}>
-      <Box textAlign="center" fontSize="xl">
+      <Box textAlign="left" fontSize="xl">
         <Grid minH="100vh" p={3}>
           <ColorModeSwitcher justifySelf="flex-end" />
           <VStack spacing={8}>
-          	<OrderedList>
+          	<OrderedList fontSize='3xl'>
           		{ListOfJournals.map((j)=>
           			<ListItem key={j['id']}>
-          				<Box textAlign="left" fontSize="xl">
-          					{j['title']}
-          					<Text>{j['body']}</Text>
-          				</Box>
+          					<Text>{j['title']}</Text>
+          					<Text fontSize='sm'>{j['body']}</Text>
           			</ListItem>)}
   			</OrderedList>
 	        </VStack>
