@@ -38,7 +38,7 @@ function App() {
    const getList = async (target)=>{
 	   try{
 		var url = 'http://127.0.0.1:8000/related/'+target;
-		const response = await fetch(url,{method:'GET'})
+		const response = await fetch(url,{method:'GET'});
 		const json = await response.json();
 		var results = makeData(json.words,json.probs);
 	        setData(results);
@@ -53,7 +53,7 @@ function App() {
 
     // react hook
     useEffect(() => {
-      if(target==''){setTarget('whatever');
+      if(target.length<1){setTarget('whatever');
       console.log('initial rendering, setting the word to \'whatever\'')}
       else{getList(target);console.log('the word has been set to: '+target)}
  	 }, [target]);
