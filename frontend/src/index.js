@@ -1,32 +1,56 @@
-import { ColorModeScript } from '@chakra-ui/react';
+import { 
+  ColorModeScript,
+  ChakraProvider,
+  Button,
+  Box,
+  Text,
+  Link,
+  VStack,
+  Input,
+  Grid,
+  GridItem,
+  theme,
+} from '@chakra-ui/react';
 import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import Journals from './Journals'
 import {BrowserRouter,Routes,Route,} from "react-router-dom";
-import reportWebVitals from './reportWebVitals';
-import * as serviceWorker from './serviceWorker';
+import { ColorModeSwitcher } from './ColorModeSwitcher';
 
 ReactDOM.render(
   <StrictMode>
-    <ColorModeScript />
+  <ChakraProvider theme={theme}>
+  <Box textAlign="center" fontSize="xl">
+    <Grid minH="5vh" p={3}>
+      <ColorModeSwitcher justifySelf="flex-end" />
+    </Grid>
+
+    <Grid templateColumns='repeat(3, 1fr)' gap={6}>
+      <GridItem w='100%' h='10' bg='teal'>
+        <Link theme={theme} href = 'http://localhost:3000/'>Home</Link>
+      </GridItem>
+
+      <GridItem w='100%' h='10' bg='teal'>
+        <Link theme={theme} href = 'http://localhost:3000/journals/'>Journals</Link>
+      </GridItem>
+
+      <GridItem w='100%' h='10' bg='teal'>
+        <Link theme={theme}  href = 'https://google.co.uk'>Google</Link>
+      </GridItem>
+
+    </Grid>
+  </Box>
+
+  
     <BrowserRouter>
     <Routes>
       <Route path = "/" element={<App/>}/>
       <Route path = "/journals/" element={<Journals/>}/>
     </Routes>
     </BrowserRouter>
-    
+    </ChakraProvider>
   </StrictMode>,
 	document.getElementById('root') 
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://cra.link/PWA
-serviceWorker.unregister();
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
