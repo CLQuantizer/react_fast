@@ -7,10 +7,11 @@ from fastapi.security import OAuth2PasswordBearer
 from fastapi.responses import JSONResponse
 from fastapi import Depends,Request, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from journal.journal_router import router as JournalRouter
+from users.router import userRouter
 
 app = FastAPI()
-app.include_router(JournalRouter, tags=["Journal"], prefix="/journal")
+app.include_router(userRouter, tags=["User"], prefix="/users")
+
 
 origins = [
     "http://localhost:3000",
@@ -29,16 +30,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-
-app = FastAPI()
-
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
-@app.get("/items/")
-async def read_items(token: str = Depends(oauth2_scheme)):
-    return {"token": token}
+# @app.get("/items/")
+# async def read_items(token: str = Depends(oauth2_scheme)):
+#     return {"token": token}
 
 # glove_vectors = gensim.downloader.load('glove-wiki-gigaword-50')
 
@@ -64,7 +61,7 @@ async def related(Word):
         probs = ['','\''+Word+'\'', 'or is too rare for this little app']
     return {'words':words, 'probs':probs}
 
-@app.post("/related/")
+@app.get("/related/")
 async def related():
     words = ['Sorry 🥵', 'Please input']
     probs = ['','something']
