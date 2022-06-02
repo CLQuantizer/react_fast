@@ -1,8 +1,9 @@
 import gensim.downloader
 import pickle
+import secrets
 from typing import List
-from fastapi import FastAPI, Request
 from fastapi.encoders import jsonable_encoder
+from fastapi.security import OAuth2PasswordBearer
 from fastapi.responses import JSONResponse
 from fastapi import Depends,Request, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -28,6 +29,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+
+app = FastAPI()
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+
+@app.get("/items/")
+async def read_items(token: str = Depends(oauth2_scheme)):
+    return {"token": token}
+
 # glove_vectors = gensim.downloader.load('glove-wiki-gigaword-50')
 
 # with open('glove50','wb') as f:
@@ -36,8 +48,8 @@ with open('glove50','rb') as f:
     glove_vectors = pickle.load(f)
 
 @app.get("/")
-async def read_main():
-    return {"msg": "Hello World"}
+async def read_main(token: str = Depends(oauth2_scheme)):
+    return {"msg": "Hello World", "token":token}
 
 @app.get("/related/{Word}")
 async def related(Word):
