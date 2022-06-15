@@ -71,6 +71,7 @@ function App() {
         return(
         <form onSubmit = {formik.handleSubmit}>
          <label htmlFor='word'>Enter a word to search for its 15 most related words<br/></label>
+         <br/>
          <Input id ='word'
             name = 'word'
             type = 'word'

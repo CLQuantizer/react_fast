@@ -12,6 +12,7 @@ from .database import(
     delete_user_by_username,
     get_journals,
     create_user_journal,
+    delete_journal_by_title,
 )
 
 
@@ -63,7 +64,12 @@ def delete_user_data_by_name(user: schemas.UserBase, db: Session = Depends(get_d
 def add_new_journal_for_user(user_id: int, journal: schemas.JournalCreate, db: Session = Depends(get_db)):
     return create_user_journal(db=db, journal=journal, user_id=user_id)
 
+@userRouter.delete("/{user_id}/journals/", response_model=schemas.Journal, response_description="delete a journal for a user")
+def remove_journal_by_title(journal: schemas.JournalBase, db: Session = Depends(get_db)):
+    return delete_journal_by_title(db=db,title=journal.title)
+
 @userRouter.get("/journals/", response_model=list[schemas.Journal], response_description="get all journals")
-def read_journals_data(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    journals = get_journals(db, skip=skip, limit=limit)
+def read_journals_data(db: Session = Depends(get_db)):
+    journals = get_journals(db, skip=0, limit=100)
     return journals
+

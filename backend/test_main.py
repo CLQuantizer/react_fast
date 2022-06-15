@@ -10,37 +10,36 @@ def test_related():
 def test_create_user():
     response = client.post(
         '/users/',
-        json={"username":'ezio','password':'go'},
+        json={"username":'ez','password':'go'},
     )
-    assert response.json()['username'] =='ezio'
+    assert response.json()['username'] =='ez'
 
 def test_delete_user():
     response = client.delete(
         '/users/',
-        json={"username":'ezio'},
+        json={"username":'ez'},
     )
-    assert response.json()['username'] =='ezio'
+    assert response.json()['username'] =='ez'
 
-# def test_create_user():
-#     response = client.post(
-#         '/user/',
-#         json={"username":'hgfds','password':'go','email':'hello@ox.ac.uk'}
-#     )
-#     assert response.status_code == 200
-#     assert response.json()['data'][0]['email'] == 'hello@ox.ac.uk'
+def test_get_journal():
+    response = client.get('/users/journals/')
+    assert response.json()[0]['title'] =='string'
 
-# def test_getuser():
-#     response = client.get('/user/6298fd14d72582a0449af964')
-#     assert response.json()['data'][0]['username']=='foo'
+def test_add_new_journal_for_user():
+    response = client.post(
+        "/users/12/journals/",
+        json={"title":"test","date":"test","body":"test"},
+        )
+    assert response.json()['title'] =='test'
 
-# def test_delete_user():
-#     response = client.delete(
-#         '/user/6298fd14d72582a0449af964',
-#         json={"username":'hgfds','password':'go','email':'hello@ox.ac.uk'}
-#     )
-#     assert response.status_code == 200
-#     assert response.json()['data'][0]['email'] == 'hello@ox.ac.uk'
-
+def test_delete_journal():
+    response = client.delete(
+        "/users/12/journals/",
+        json={"title":"test"},
+        )
+    print(response.json())
+    assert response.json()['title'] =='test'
+    
 
 def test_():
     response = client.get("/")

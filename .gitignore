@@ -1,3 +1,4 @@
 backend/glove50
-backend/__pycache__
+backend/users/__pycache__
 node_modules/*
+backend/__pycache__

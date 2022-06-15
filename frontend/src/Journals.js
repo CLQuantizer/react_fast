@@ -18,18 +18,18 @@ import {
   
 function Journals(journals){
 	const [ListOfJournals,setListOfJournal] = useState([]);
-   	async function getData(){
-   		try{
-			const url = 'http://127.0.0.1:8000/journal/';
+   	
+	async function getData(){
+		try{
+			const url = 'http://127.0.0.1:8000/users/journals/';
 			const response = await fetch(url,{method:'GET'});
 			const json = await response.json();
-			
+
 			console.log('the response for from API is:');
-          	setListOfJournal(json['data'][0]);
-          	console.log(ListOfJournals);
-	   }catch(error){console.error(error);
-	   }finally{}
-   	}
+						console.log(json);
+			    	setListOfJournal(json);
+			}catch(error){console.error(error);}
+		}
 
 	useEffect(() => {
 		getData();
