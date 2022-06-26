@@ -5,7 +5,7 @@ description = ""
 authors = ["Ez <ezioxxk@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = ">3.8,<3.11"
+python = ">=3.9,<3.11"
 gensim = "^4.1.2"
 
 
