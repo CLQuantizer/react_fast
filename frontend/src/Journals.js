@@ -5,7 +5,7 @@ import {
   VStack,
   Grid,
   ListItem,
-  OrderedList,
+  UnorderedList,
 } from '@chakra-ui/react';
 import ReactMarkdown from 'react-markdown';
 
@@ -34,14 +34,14 @@ function Journals(journals){
       <Box maxW='lg' textAlign="left" fontSize="xl">
         <Grid minH="100vh" p={3}>
           <VStack spacing={8}>
-          	<OrderedList fontSize='3xl'>
+          	<UnorderedList fontSize='3xl'>
           		{ListOfJournals.map((j)=>
           			<ListItem key={j['id']}>
           					<Text>{j['title']}</Text>
 							  <Text fontSize='sm'><ReactMarkdown>{j['body']}</ReactMarkdown></Text>
 							  <Text fontSize='sm'><ReactMarkdown>{strin}</ReactMarkdown></Text>
           			</ListItem>)}
-  			</OrderedList>
+  			</UnorderedList>
 	        </VStack>
         </Grid>
       </Box>
