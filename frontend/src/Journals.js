@@ -14,7 +14,10 @@ function Journals(journals){
    	
 	async function getData(){
 		try{
+			// devlopment server
 			const url = 'http://127.0.0.1:8000/users/journals/';
+			// production server
+			// const url = 'http://langedev.net:8000/users/journals/';
 			const response = await fetch(url,{method:'GET'});
 			const json = await response.json();
 
@@ -28,18 +31,15 @@ function Journals(journals){
 		getData();
  	 }, []);
 	
-	const strin = "#### A demo of **react-markdown**\n react-markdown \
-	is a markdown component for React. is ";
 	return (
-      <Box maxW='lg' textAlign="left" fontSize="xl">
+      <Box maxW='lg' textAlign="left">
         <Grid minH="100vh" p={3}>
           <VStack spacing={8}>
-          	<UnorderedList fontSize='3xl'>
+          	<UnorderedList fontSize='sm'>
           		{ListOfJournals.map((j)=>
           			<ListItem key={j['id']}>
-          					<Text>{j['title']}</Text>
-							  <Text fontSize='sm'><ReactMarkdown>{j['body']}</ReactMarkdown></Text>
-							  <Text fontSize='sm'><ReactMarkdown>{strin}</ReactMarkdown></Text>
+          					<Text fontSize='2xl' fontWeight='bold'>{j['title']}</Text>
+								<ReactMarkdown>{j['body']}</ReactMarkdown>
           			</ListItem>)}
   			</UnorderedList>
 	        </VStack>

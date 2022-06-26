@@ -14,6 +14,13 @@ import Journals from './Journals'
 import {BrowserRouter,Routes,Route,} from "react-router-dom";
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 
+// development server
+const devlopment_addr = 'http://localhost:3000/';
+// production server
+const production_addr = 'http://langedev.net/';
+
+const addr = devlopment_addr;
+
 ReactDOM.render(
   <StrictMode>
   <ChakraProvider theme={theme}>
@@ -25,13 +32,13 @@ ReactDOM.render(
     <Grid templateColumns='repeat(3, 1fr)' gap={6}>
       <GridItem w='100%' h='10' >
         <Button variant = 'outline'>
-          <Link href = 'http://localhost:3000/'>Home</Link>
+          <Link href ={addr}>Home</Link>
         </Button>
       </GridItem>
 
       <GridItem w='100%' h='10'>
         <Button variant = 'outline'>
-          <Link href = 'http://localhost:3000/journals/'>Journals</Link>
+          <Link href = {addr +'journals/'}>Journals</Link>
         </Button>
       </GridItem>
 

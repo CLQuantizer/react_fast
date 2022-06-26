@@ -14,12 +14,12 @@ app.include_router(userRouter, tags=["User"], prefix="/users")
 
 
 origins = [
-    "http://localhost:3000",
+    "http://139.162.225.136",
     "http://langedev.net",
     "http://langedev.net:3000",
-    "http://langedev.net:80",
-    "localhost:3000",
-    "localhost:80",
+    "http://localhost:3000",
+    "http://localhost:3001",
+    "http://localhost:80",
 ]
 
 app.add_middleware(

@@ -10,6 +10,10 @@ import {
 } from '@chakra-ui/react';
 import { Logo } from './Logo';
 
+// devlopment server
+const addr = 'http://127.0.0.1:8000/related/';
+// production server
+// const addr = 'http://langedev.net:8000/related/';
 
 function App() {
    // set the title of the page 
@@ -32,6 +36,7 @@ function App() {
    // function that does POST with target word
    const getList = async (target)=>{
 	   try{
+    
 		var url = 'http://127.0.0.1:8000/related/'+target;
 		const response = await fetch(url,{method:'GET'});
 		const json = await response.json();
