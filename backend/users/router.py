@@ -12,13 +12,11 @@ from .database import(
     create_user,
     create_user_journal,
     delete_journal_by_title,
-    delete_user_by_id,
     delete_user_by_username,
     engine,
     get_journals,
     get_user_journals,
     get_users,
-    get_user_by_id,
     get_user_by_username,
     SessionLocal,
 )
@@ -127,7 +125,7 @@ def read_user_data_by_username(username: str, db: Session = Depends(get_db)):
     user = get_user_by_username(db, username=username)
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
-    return get_user_by_id(db, user_id=user.id)
+    return user
 
 @userRouter.delete("/username/{username}", response_model=schemas.User,response_description="Single user data deleted")
 def delete_user_data_by_username(username: str, db: Session = Depends(get_db)):
