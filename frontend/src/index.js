@@ -1,12 +1,8 @@
 import { 
-  ColorModeScript,
   ChakraProvider,
   Button,
   Box,
-  Text,
   Link,
-  VStack,
-  Input,
   Grid,
   GridItem,
   theme,
