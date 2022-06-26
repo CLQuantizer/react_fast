@@ -3,7 +3,7 @@ import pickle
 import secrets
 from typing import List
 from fastapi.encoders import jsonable_encoder
-from fastapi.security import OAuth2PasswordBearer
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi.responses import JSONResponse
 from fastapi import Depends,Request, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -30,8 +30,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
-
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="users/token")
 
 # @app.get("/items/")
 # async def read_items(token: str = Depends(oauth2_scheme)):

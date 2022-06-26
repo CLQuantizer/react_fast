@@ -29,31 +29,16 @@ class User(UserBase):
     class Config:
        orm_mode = True
 
-# class UpdateJournalSchema(BaseModel):
-#     title: Optional[str]
-#     author: Optional[str]
-#     date: Optional[str]
-#     body: Optional[str]
+class UserInDB(User):
+    hashed_password: str
 
-#     class Config:
-#         orm_mode=True
-#         # schema_extra = {
-#         #     "example": {
-#         #         "title": "ganbarisugita",
-#         #         "author": "Ezius",
-#         #         "date": "04/07/1967",
-#         #         "body": "hello it is me, but updated",
-#         #     }
-#         # }
+    @classmethod
+    def from_dict(cls, d):
+        return cls(**d)
 
-# def ResponseModel(data, message):
-#     return {
-#         "data": [data],
-#         "code": 200,
-#         "message": message,
-#     }
+class Token(BaseModel):
+    access_token: str
+    token_type: str
 
-
-# def ErrorResponseModel(error, code, message):
-#     return {"error": error, "code": code, "message": message}
-
+class TokenData(BaseModel):
+    username : Union[str, None ]= None
