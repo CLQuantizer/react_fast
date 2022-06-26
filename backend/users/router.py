@@ -122,29 +122,15 @@ def read_users_data(skip: int = 0, limit: int = 100, db: Session = Depends(get_d
     users = get_users(db, skip=skip,limit=limit)
     return users
 
-@userRouter.get("/user_id/{user_id}", response_model=schemas.User,response_description="Single user data retrieved")
-def read_user_data_by_id(user_id: int, db: Session = Depends(get_db)):
-    db_user = get_user_by_id(db, user_id=user_id)
-    if db_user is None:
-        raise HTTPException(status_code=404, detail="User not found")
-    return db_user
-
 @userRouter.get("/username/{username}", response_model=schemas.User, response_description="One user data retrieved")
 def read_user_data_by_username(username: str, db: Session = Depends(get_db)):
     user = get_user_by_username(db, username=username)
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
-    return user
-
-@userRouter.delete("/user_id/{user_id}", response_model=schemas.User,response_description="Single user data retrieved")
-def delete_user_data_by_id(user_id: int, db: Session = Depends(get_db)):
-    old_user = get_user_by_id(db, user_id=user_id)
-    if old_user is None:
-        raise HTTPException(status_code=404, detail="User not found")
-    return delete_user_by_id(db=db, user_id=user_id)
+    return get_user_by_id(db, user_id=user.id)
 
 @userRouter.delete("/username/{username}", response_model=schemas.User,response_description="Single user data deleted")
-def delete_user_data_by_name(username: str, db: Session = Depends(get_db)):
+def delete_user_data_by_username(username: str, db: Session = Depends(get_db)):
     old_user = get_user_by_username(db, username=username)
     if old_user is None:
         raise HTTPException(status_code=404, detail="User not found")
@@ -153,16 +139,16 @@ def delete_user_data_by_name(username: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="User has journals")
     return delete_user_by_username(db=db, username=username)
 
-@userRouter.post("/user_id/{user_id}/journals/", response_model=schemas.Journal, response_description="create a journal for a user")
-def add_new_journal_for_user(user_id: int, journal: schemas.JournalCreate, db: Session = Depends(get_db)):
-    return create_user_journal(db=db, journal=journal, user_id=user_id)
+@userRouter.post("/username/{username}/journals/", response_model=schemas.Journal, response_description="create a journal for a user")
+def add_new_journal_for_user(username: str, journal: schemas.JournalCreate, db: Session = Depends(get_db)):
+    return create_user_journal(db=db, journal=journal, username=username)
 
-@userRouter.get("/user_id/{username}/journals/", response_model=list[schemas.Journal], response_description="All journals data for a user")
+@userRouter.get("/username/{username}/journals/", response_model=list[schemas.Journal], response_description="All journals data for a user")
 def read_journals_of_user_by_username(username: str, db: Session = Depends(get_db)):
     return get_user_journals(db=db, username=username)
 
-@userRouter.delete("/user_id/{user_id}/journals/", response_model=schemas.Journal, response_description="delete a journal for a user")
-def remove_journal_by_title(journal: schemas.JournalBase, db: Session = Depends(get_db)):
+@userRouter.delete("/username/{username}/journals/", response_model=schemas.Journal, response_description="delete a journal for a user")
+def remove_journal_by_title(journal: schemas.JournalDelete, db: Session = Depends(get_db)):
     return delete_journal_by_title(db=db,title=journal.title)
 
 @userRouter.get("/journals/", response_model=list[schemas.Journal], response_description="get all journals")

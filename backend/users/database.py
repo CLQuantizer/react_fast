@@ -18,7 +18,6 @@ def get_password_hash(password):
     return pwd_context.hash(password)
 
 # the CRUD operations
-
 def create_user(db: Session, user: schemas.UserCreate):
     hashed_password = get_password_hash(user.password)
     new_user = models.User(username=user.username, hashed_password=hashed_password)
@@ -57,8 +56,9 @@ def get_journal_by_id(db: Session, journal_id: int):
 def get_journal_by_title(db: Session, title: str):
     return db.query(models.Journal).filter(models.Journal.title == title).first()
 
-def create_user_journal(db: Session, journal: schemas.JournalCreate, user_id: int):
-    new_journal = models.Journal(**journal.dict(), author_id=user_id)
+def create_user_journal(db: Session, journal: schemas.JournalCreate, username: str):
+    user = get_user_by_username(db=db, username=username)
+    new_journal = models.Journal(**journal.dict(), author_id=user.id)
     db.add(new_journal)
     db.commit()
     db.refresh(new_journal)

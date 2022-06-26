@@ -21,10 +21,6 @@ def test_get_user_by_username():
     response = client.get("/users/username/"+MAGIC_NAME)
     assert response.json()['username']== MAGIC_NAME
 
-def test_get_user_by_id():
-    response1 = client.get("/users/user_id/59/")
-    assert response1.json()['username'] == "Joe"
-
 def test_delete_user():
     response = client.delete(
         '/users/username/'+MAGIC_NAME,
@@ -42,9 +38,10 @@ def test_jwt_login():
 
 def test_add_new_journal_for_user():
     response = client.post(
-        "/users/user_id/59/journals/",
+        "/users/username/Joe/journals/",
         json={"title":"test","date":"test","body":"test"},
         )
+    print(response.json())
     assert response.json()['title'] =='test'
 
 # get journal must be between add new and delete
@@ -52,9 +49,9 @@ def test_get_journal():
     response = client.get('/users/journals/')
     assert response.json()[0]['title']=='test'
 
-def test_delete_journal():
+def test_remove_journal_by_title():
     response = client.delete(
-        "/users/user_id/59/journals/",
+        "/users/username/Joe/journals/",
         json={"title":"test"},
         )
     assert response.json()['title']=='test'

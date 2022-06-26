@@ -9,6 +9,9 @@ class JournalBase(BaseModel):
 class JournalCreate(JournalBase):
     pass
 
+class JournalDelete(JournalBase):
+    title: str
+
 class Journal(JournalBase):
     id: int
     author_id: int
