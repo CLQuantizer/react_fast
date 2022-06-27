@@ -30,8 +30,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="users/token")
-
 # @app.get("/items/")
 # async def read_items(token: str = Depends(oauth2_scheme)):
 #     return {"token": token}
@@ -44,8 +42,8 @@ with open('glove50','rb') as f:
     glove_vectors = pickle.load(f)
 
 @app.get("/")
-async def read_main(token: str = Depends(oauth2_scheme)):
-    return {"msg": "Hello World", "token":token}
+async def read_main():
+    return {"msg": "Hello World"}
 
 @app.get("/related/{Word}")
 async def related(Word):
