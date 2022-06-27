@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Union, List
 from pydantic import BaseModel
 
 class JournalBase(BaseModel):
@@ -9,8 +9,8 @@ class JournalBase(BaseModel):
 class JournalCreate(JournalBase):
     pass
 
-class JournalDelete(JournalBase):
-    title: str
+class JournalUpdate(JournalBase):
+    pass
 
 class Journal(JournalBase):
     id: int
@@ -45,3 +45,4 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     username : Union[str, None ]= None
+    scopes: List[str] = []
