@@ -55,7 +55,6 @@ def create_user_journal(db: Session, journal: schemas.JournalCreate, user: schem
 def update_journal(db: Session, journal: schemas.JournalUpdate):
     db.query(models.Journal).filter(models.Journal.title == journal.title).update(journal.dict())
     db.commit()
-    db.refresh(journal)
     return journal
 
 def get_user_journals(db: Session, username: str):

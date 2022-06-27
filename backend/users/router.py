@@ -145,13 +145,13 @@ async def read_journals_of_a_user(user: schemas.UserBase=Depends(get_current_use
     return get_user_journals(db=db, username=user.username)
 
 @userRouter.delete("/write/", response_model=schemas.User,response_description="Single user data deleted")
-async def delete_user_data_by_username(user: schemas.UserBase=Depends(get_current_user) , db: Session = Depends(get_db)):
+async def delete_a_user_data(user: schemas.UserBase=Depends(get_current_user) , db: Session = Depends(get_db)):
     old_user = get_user_by_username(db, username=user.username)
     if old_user is None:
         raise HTTPException(status_code=404, detail="User not found")
-    journals_of_old_user = get_user_journals(db, user=user)
+    journals_of_old_user = get_user_journals(db, username=user.username)
     if len(journals_of_old_user)>0:
-        raise HTTPException(status_code=400, detail="User has journals")
+        raise HTTPException(status_code=400, detail="You have journals, delete those first")
     return delete_user_by_username(db=db, user=user)
 
 @userRouter.post("/write/journals/", response_model=schemas.Journal, response_description="create a journal for a user")

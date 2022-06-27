@@ -18,6 +18,7 @@ import Config from './Config';
 
 //change to production when needed
 const serverUrl = Config.developmentServer;
+//const serverUrl = Config.productionServer;
 document.title='Journals';
 
 ReactDOM.render(
