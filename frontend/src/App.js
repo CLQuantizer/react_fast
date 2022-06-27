@@ -9,18 +9,18 @@ import {
   Grid,
 } from '@chakra-ui/react';
 import { Logo } from './Logo';
+import Config from './Config';
 
-// devlopment server
-const addr = 'http://127.0.0.1:8000/related/';
+// devlopment api
+const relatedUrl = Config.developmentApi+'related/';
 // production server
-// const addr = 'http://langedev.net:8000/related/';
+// const addr = Config.productionApi+'related/';
 
 function App() {
    // set the title of the page 
 	 document.title='Word Relatedness API'
 
-   // define the states
-   const [isLoading,setLoading] = useState(true);
+   // define the states for the form
    const [data, setData] = useState([]);
    const [target, setTarget] = useState([]);
 
@@ -36,8 +36,7 @@ function App() {
    // function that does POST with target word
    const getList = async (target)=>{
 	   try{
-    
-		var url = 'http://127.0.0.1:8000/related/'+target;
+		var url = relatedUrl+target;
 		const response = await fetch(url,{method:'GET'});
 		const json = await response.json();
 		var results = makeData(json.words,json.probs);
@@ -47,7 +46,6 @@ function App() {
 	   }catch(error){console.error(error);
 	   }finally{
       console.log('generating the DataTable')
-		  setLoading(false);
 	   }
 	}
 
