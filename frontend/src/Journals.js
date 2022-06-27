@@ -8,17 +8,15 @@ import {
   UnorderedList,
 } from '@chakra-ui/react';
 import ReactMarkdown from 'react-markdown';
+import Config from './Config';
 
 function Journals(journals){
+	const journalUrl = Config.developmentApi+'users/journals/';
 	const [ListOfJournals,setListOfJournal] = useState([]);
    	
 	async function getData(){
 		try{
-			// devlopment server
-			const url = 'http://127.0.0.1:8000/users/journals/';
-			// production server
-			// const url = 'http://langedev.net:8000/users/journals/';
-			const response = await fetch(url,{method:'GET'});
+			const response = await fetch(journalUrl,{method:'GET'});
 			const json = await response.json();
 
 			console.log('the response for from API is:');
@@ -37,7 +35,7 @@ function Journals(journals){
           <VStack spacing={8}>
           	<UnorderedList fontSize='sm'>
           		{ListOfJournals.map((j)=>
-          			<ListItem key={j['id']}>
+          			<ListItem p='2' mt='15' key={j['id']}>
           					<Text fontSize='2xl' fontWeight='bold'>{j['title']}</Text>
 								<ReactMarkdown>{j['body']}</ReactMarkdown>
           			</ListItem>)}
