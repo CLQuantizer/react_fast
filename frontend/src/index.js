@@ -16,6 +16,7 @@ import { ColorModeSwitcher } from './ColorModeSwitcher';
 import Journals from './Journals'
 import Config from './Config';
 
+//change to production when needed
 const serverUrl = Config.developmentServer;
 document.title='Journals';
 

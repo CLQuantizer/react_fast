@@ -10,8 +10,11 @@ import {
 import ReactMarkdown from 'react-markdown';
 import Config from './Config';
 
+//change to production in production
+const journalUrl = Config.developmentApi+'users/journals/';
+
 function Journals(journals){
-	const journalUrl = Config.developmentApi+'users/journals/';
+	
 	const [ListOfJournals,setListOfJournal] = useState([]);
    	
 	async function getData(){
