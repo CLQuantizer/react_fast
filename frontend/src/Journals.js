@@ -10,8 +10,7 @@ import {
 import ReactMarkdown from 'react-markdown';
 import Config from './Config';
 
-//change to production in production
-const journalUrl = Config.developmentApi+'users/read/alljournals/';
+const journalUrl = Config.api+'users/read/alljournals/';
 
 function Journals(journals){
 	

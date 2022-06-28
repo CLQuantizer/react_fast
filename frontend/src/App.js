@@ -12,9 +12,9 @@ import { Logo } from './Logo';
 import Config from './Config';
 
 // devlopment api
-//const relatedUrl = Config.developmentApi+'related/';
+const relatedUrl = Config.api+'related/';
 // production server
-const relatedUrl = Config.productionApi+'related/';
+// const relatedUrl = Config.productionApi+'related/';
 
 function App() {
    // set the title of the page 

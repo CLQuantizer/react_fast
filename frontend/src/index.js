@@ -16,9 +16,7 @@ import { ColorModeSwitcher } from './ColorModeSwitcher';
 import Journals from './Journals'
 import Config from './Config';
 
-//change to production when needed
-const serverUrl = Config.developmentServer;
-//const serverUrl = Config.productionServer;
+const serverUrl = Config.server;
 document.title='Journals';
 
 ReactDOM.render(
