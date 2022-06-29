@@ -68,6 +68,7 @@ def get_journal_by_title(db: Session, title: str):
     return db.query(models.Journal).filter(models.Journal.title == title).first()
 
 def delete_journal_by_title(db: Session, title: str):
-    journal = db.query(models.Journal).filter(models.Journal.title == title).delete()
+    journal = db.query(models.Journal).filter(models.Journal.title == title).first()
+    db.delete(journal)
     db.commit()
     return journal

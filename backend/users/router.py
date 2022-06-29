@@ -42,7 +42,7 @@ def get_db():
 
 # Auth config
 oauth2_scheme = OAuth2PasswordBearer(
-    tokenUrl="/users/token",
+    tokenUrl="/users/token/",
     scopes={"read": "Read access", "write": "Write access", 'me': 'Me access'},
 )
 
@@ -169,11 +169,11 @@ async def update_a_journal_of_a_user(journal: schemas.JournalUpdate, user: schem
     return update_journal(db=db, journal=journal)
 
 @userRouter.delete("/write/journals/", response_model=schemas.Journal, response_description="delete a journal for a user")
-async def remove_journal_by_title(journal: schemas.JournalBase , user: schemas.UserBase=Depends(get_current_user), db: Session = Depends(get_db)):
-    user = get_user_by_username(db=db, username=user.username)
+async def remove_a_journal_by_its_title(journal: schemas.JournalBase , user: schemas.UserBase=Depends(get_current_user), db: Session = Depends(get_db)):
+    userInDB = get_user_by_username(db=db, username=user.username)
     old_journal = get_journal_by_title(db=db, title=journal.title)
     if old_journal is None:
         raise HTTPException(status_code=404, detail="Journal not found")
-    if old_journal.author_id != user.id:
+    if old_journal.author_id != userInDB.id:
         raise HTTPException(status_code=400, detail="You can't delete journal of other user")
     return delete_journal_by_title(db=db, title=journal.title)
