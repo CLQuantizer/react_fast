@@ -13,7 +13,7 @@ import Config from './Config';
 const journalUrl = Config.api+'users/read/alljournals/';
 
 function Journals(journals){
-	
+	document.title='Journals';
 	const [ListOfJournals,setListOfJournal] = useState([]);
    	
 	async function getData(){
@@ -37,9 +37,10 @@ function Journals(journals){
           <VStack spacing={8}>
           	<UnorderedList fontSize='sm'>
           		{ListOfJournals.map((j)=>
-          			<ListItem p='2' mt='15' key={j['id']}>
-          					<Text fontSize='2xl' fontWeight='bold'>{j['title']}</Text>
-								<ReactMarkdown>{j['body']}</ReactMarkdown>
+          			<ListItem p='2' mt='15' key={j['title']}>
+          					<Text fontSize='2xl' fontWeight='bold' >{j['title']}</Text>
+							<Text fontSize='m' fontWeight='bold' color='#285E61'>By {j['author']} on: {j['date']}</Text>
+							<ReactMarkdown>{j['body']}</ReactMarkdown>
           			</ListItem>)}
   			</UnorderedList>
 	        </VStack>

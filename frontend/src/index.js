@@ -18,7 +18,7 @@ import Journals from './Journals'
 import Config from './Config';
 
 const serverUrl = Config.server;
-document.title='Journals';
+
 function Index(){
   return (
   <StrictMode>

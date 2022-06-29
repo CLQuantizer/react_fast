@@ -22,6 +22,7 @@ const getToken = async (username, password)=>{
 }
 
 const LoginBox = props => (
+    document.title='Login',
     <Center>
     <Box p='4' maxW='lg' textAlign="left">
         <Text fontSize="2xl" mb="5">Login in for more functionality</Text>
