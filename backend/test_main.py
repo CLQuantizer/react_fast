@@ -24,7 +24,7 @@ def test_create_user():
 def test_jwt_login() -> str:
     response = client.post(
         headers={"Content-Type":"application/x-www-form-urlencoded"},
-        url ="/users/token",
+        url ="/users/token/",
         data = f"grant_type=&username={MAGIC_NAME}&password={MAGIC_WORD}&scope=&client_id=&client_secret="
     )
     assert response.json()['token_type']== 'bearer'
