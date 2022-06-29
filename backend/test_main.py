@@ -107,6 +107,12 @@ def test_delete_user():
     )
     assert response.json()['username']==MAGIC_NAME
 
+def test_read_all_journals():
+    response = client.get("/users/read/alljournals/")
+    assert response.status_code == 200
+    for journal in response.json():
+        assert len(journal)==4
+
 def test_():
     response = client.get("/")
     assert response.status_code == 200

@@ -20,6 +20,7 @@ from .database import(
     engine,
     get_journals,
     get_journal_by_title,
+    get_user_by_id,
     get_user_journals,
     get_users,
     get_user_by_username,
@@ -136,9 +137,20 @@ async def add_a_new_user(user: schemas.UserCreate, db: Session=Depends(get_db)):
 async def read_users_me(current_user: schemas.UserBase=Depends(get_current_user)):
     return current_user
 
-@userRouter.get("/read/alljournals/", response_model=list[schemas.Journal], response_description="get all journals")
+@userRouter.get("/read/alljournals/", response_model=list[schemas.JournalWithAuthor], response_description="get all journals")
 async def read_all_journals(db: Session = Depends(get_db)):
-    return get_journals(db, skip=0, limit=100)
+    journals = get_journals(db, skip=0, limit=100)
+    journalWithAuthorList = []
+    for journal in journals:
+        author = get_user_by_id(db, user_id=journal.author_id)
+        new_journal = schemas.JournalWithAuthor(
+            title=journal.title,
+            body=journal.body,
+            date=journal.date,
+            author=journal.author.username
+            )
+        journalWithAuthorList.append(new_journal)
+    return journalWithAuthorList
 
 @userRouter.get("/read/journals/", response_model=list[schemas.Journal], response_description="All journals data for a user")
 async def read_journals_of_a_user(user: schemas.UserBase=Depends(get_current_user) , db: Session = Depends(get_db)):

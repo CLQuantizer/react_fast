@@ -19,6 +19,9 @@ class Journal(JournalBase):
     class Config:
        orm_mode = True
 
+class JournalWithAuthor(JournalBase):
+    author: str
+
 class UserBase(BaseModel):
     username: str
 
