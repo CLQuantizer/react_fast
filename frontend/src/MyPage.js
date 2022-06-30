@@ -44,18 +44,18 @@ function MyPage(props){
     if (props.isLoggedIn) {
         document.title='My Page';
         return (
-            <Center>
-              <Grid>
-                <VStack>
+            <Box maxW='m' textAlign='center'>
+                 <Grid minH="100vh" p={3}>
+                <VStack spacing={2}>
                  <Text fontSize="2xl" fontWeight='bold'>You are logged in.</Text>
                  <Text fontWeight='bold'>Your token is: </Text>
-                  <Box maxW='sm' alignItems='center'>
+                  <Box mx ="2" maxW='sm' alignItems='center'>
                     <Text>{props.accessToken}</Text>
                   </Box>
                 <MyTimer expiryTimestamp={time} setIsLoggedIn={props.setIsLoggedIn}></MyTimer>
                 </VStack>
               </Grid>
-            </Center>
+            </Box>
         );
     }else{
         document.title='Login';

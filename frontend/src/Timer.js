@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTimer } from 'react-timer-hook';
-import { Text, VStack } from '@chakra-ui/react';
+import { Box, Text, VStack } from '@chakra-ui/react';
 
 function MyTimer({expiryTimestamp, setIsLoggedIn}) {
   const {
@@ -25,9 +25,9 @@ function MyTimer({expiryTimestamp, setIsLoggedIn}) {
   return (
           <VStack spacing={8}>
           <Text fontWeight='bold'>It will expire in </Text>
-          <div style={{fontSize: '80px'}}>
-            <span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
-          </div>
+          <Box fontSize='88px'>
+            <Text color='teal'>{hours}:{minutes}:{seconds}</Text>
+          </Box>
           </VStack>
 
       // {/* <p>{isRunning ? 'Running' : 'Not running'}</p> */}
