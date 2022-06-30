@@ -13,27 +13,34 @@ const getToken = async (
     setIsLoggedIn, 
     setExpiration,
     )=>{
-    const response = await fetch(tokenApi, {
+    fetch(tokenApi, {
         body: `grant_type=&username=${username}&password=${password}&scope=&client_id=&client_secret=`,
         headers: {
             Accept: "application/json",
             "Content-Type": "application/x-www-form-urlencoded"
         },
         method: "POST"
-        });
-    const data = await response.json();
-    localStorage.setItem('accessToken', data.access_token);
-    localStorage.setItem('expiration', 899 + Math.round(new Date().getTime()/1000));
-    await setAccessToken(data.access_token);
-    await setExpiration(Math.round(899+new Date().getTime()/1000));
-    await setIsLoggedIn(true);
+        })
+        .then(response => response.json())
+        .then(async (data)=> {
+            localStorage.setItem('accessToken', data.access_token);
+            localStorage.setItem('expiration', 899 + Math.round(new Date().getTime()/1000));
+            await setAccessToken(data.access_token);
+            await setExpiration( 899+ Math.round(new Date().getTime()/1000));
+            if (data.access_token) {
+                setIsLoggedIn(true);
+            }else{
+                setIsLoggedIn(false);
+        }});
 }
 
-
 function MyPage(props){
+
+    const now = Math.round(new Date().getTime()/1000);
+    const exp = localStorage.getItem('expiration');
     const time = new Date();
-    time.setSeconds(time.getSeconds() + 900); // 10 minutes timer
-    
+    time.setSeconds(time.getSeconds() + (exp-now)); // 10 minutes timer
+
     if (props.isLoggedIn) {
         document.title='My Page';
         return (
@@ -45,7 +52,7 @@ function MyPage(props){
                 <Text fontWeight='bold'>Your token is: </Text>
                 <Text>{props.accessToken}</Text>
                 </Box>
-                <MyTimer expiryTimestamp={time}></MyTimer>
+                <MyTimer expiryTimestamp={time} setIsLoggedIn={props.setIsLoggedIn}></MyTimer>
                 </VStack>
                 
             </Center>

@@ -1,8 +1,7 @@
 import React from 'react';
 import { useTimer } from 'react-timer-hook';
-import {ChakraProvider} from '@chakra-ui/react';
 
-function MyTimer({ expiryTimestamp }) {
+function MyTimer({expiryTimestamp, setIsLoggedIn}) {
   const {
     seconds,
     minutes,
@@ -13,7 +12,14 @@ function MyTimer({ expiryTimestamp }) {
     pause,
     resume,
     restart,
-  } = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') });
+  } = useTimer({ expiryTimestamp, 
+    onExpire: () => {
+        console.warn('onExpire called');
+        setIsLoggedIn(false);
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('expiration');
+      }
+  });
 
   return (
     <div style={{textAlign: 'center'}}>
