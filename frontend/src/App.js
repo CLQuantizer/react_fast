@@ -52,8 +52,7 @@ function App() {
 
     // react hook
     useEffect(() => {
-      getList(target);
-      console.log('the word has been set to: '+target);
+      getList(target).then(()=>{console.log('the word has been set to: '+target);});
  	 }, [target]);
    
    // another component?

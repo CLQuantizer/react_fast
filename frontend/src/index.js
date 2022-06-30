@@ -20,21 +20,36 @@ import Config from './Config';
 const serverUrl = Config.server;
 
 function Index(){
-      const [accessToken, setAccessToken] = useState('');
+      const [accessToken, setAccessToken] = useState(localStorage.getItem('accessToken'));
       const [expiration, setExpiration] = useState(0);
-      const [isLoggedIn, setIsLoggedIn] = useState(false);
+      const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('accessToken') !== null);
 
-  // useEffect(()=>{
-  //   function good(){
-  //     setAccessToken(localStorage.getItem('accessToken'));
-  //     setExpiration(localStorage.getItem('expiration'));
+    const readToken = async(isLoggedIn)=>{
+      if(isLoggedIn){return;}
+      const token = localStorage.getItem('accessToken');
+      const exp = localStorage.getItem('expiration');
+      if(token && exp){
+        if(exp >Math.round(new Date().getTime()/1000)){
+          console.log('token is valid');
+          await setAccessToken(localStorage.getItem('accessToken'));
+          await setExpiration(localStorage.getItem('expiration'));
+          await setIsLoggedIn(true);
+        }else{
+          await setAccessToken('');
+          await setExpiration(0);
+          await setIsLoggedIn(false);
+        }
+      }else{
+        await setAccessToken('');
+        await setExpiration(0);
+        await setIsLoggedIn(false);
+      }
+    }
 
-  //     console.log('index isLoggedIn: '+isLoggedIn);
-  //     console.log('index 1');
-  //   }
-  //   return function cleanup(){good();console.log('index 1 cleanup');}
-  // }
-  // ,);
+    useEffect(()=>{
+      if(accessToken!=''){
+        readToken(isLoggedIn).then(()=>{console.log('now I am logged in right?: '+isLoggedIn);});}
+    },[isLoggedIn]);
 
   return (
   <StrictMode>

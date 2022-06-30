@@ -24,21 +24,15 @@ const getToken = async (
     const data = await response.json();
     localStorage.setItem('accessToken', data.access_token);
     localStorage.setItem('expiration', 899 + Math.round(new Date().getTime()/1000));
-    setAccessToken(data.access_token);
-    setExpiration(Math.round(899+new Date().getTime()/1000));
-    setIsLoggedIn(true);
+    await setAccessToken(data.access_token);
+    await setExpiration(Math.round(899+new Date().getTime()/1000));
+    await setIsLoggedIn(true);
 }
 
 
 function MyPage(props){
     const time = new Date();
     time.setSeconds(time.getSeconds() + 900); // 10 minutes timer
-
-    useEffect(()=>{
-        console.log('mypage');
-        console.log('mypage isLoggedIn: '+props.isLoggedIn);
-    });
-    
     
     if (props.isLoggedIn) {
         document.title='My Page';
