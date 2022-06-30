@@ -22,7 +22,7 @@ function App() {
 
    // define the states for the form
    const [data, setData] = useState([]);
-   const [target, setTarget] = useState([]);
+   const [target, setTarget] = useState('whatever');
 
    // function that converts JSON data into list
    const makeData = (words,probs)=>{
@@ -34,6 +34,7 @@ function App() {
    }  
 
    // function that does POST with target word
+   // And set the data to the state
    const getList = async (target)=>{
 	   try{
 		var url = relatedUrl+target;
@@ -51,9 +52,8 @@ function App() {
 
     // react hook
     useEffect(() => {
-      if(target.length<1){setTarget('whatever');
-      console.log('initial rendering, setting the word to \'whatever\'')}
-      else{getList(target);console.log('the word has been set to: '+target)}
+      getList(target);
+      console.log('the word has been set to: '+target);
  	 }, [target]);
    
    // another component?
