@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Button, Center, FormControl, Input, Text, VStack} from '@chakra-ui/react';
+import {Box, Button, Center, Input, Text, VStack} from '@chakra-ui/react';
 import {Form, Formik} from "formik";
 import Config from './Config';
 
@@ -31,9 +31,7 @@ const LoginBox = props => (
             validate={values => {
                 const errors = {};
                 if (!values.username) {
-                    errors.username = 'Required';
-                } else if (values.username.length < 3) {
-                    errors.email = 'Username too short';
+                    errors.username = 'Username Required';
                 }
                 return errors;
             }}
@@ -66,7 +64,7 @@ const LoginBox = props => (
                 value={values.username}
                 placeholder='username/用戶名'
             />
-            {errors.email && touched.email && errors.email}
+            <Text color='#2C7A7B' fontSize='sm'>{errors.username && touched.username && errors.username}</Text>
 
             <Input
                 width = '80%'
@@ -77,7 +75,6 @@ const LoginBox = props => (
                 value={values.password}
                 placeholder='password/密碼'
             />
-            {errors.password && touched.password && errors.password}
 
             <Button type="submit" disabled={isSubmitting} mt="5">
                 Submit
