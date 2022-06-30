@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Button, Center, Input, Text, VStack} from '@chakra-ui/react';
+import {Box, Button, Center, Grid, Input, Text, VStack} from '@chakra-ui/react';
 import {Form, Formik} from "formik";
 import Config from './Config';
 import MyTimer from './Timer';
@@ -45,16 +45,16 @@ function MyPage(props){
         document.title='My Page';
         return (
             <Center>
-                
+              <Grid>
                 <VStack>
-                <Text fontSize="2xl" fontWeight='bold'>You are logged in.</Text>
-                <Box width='40%'>
-                <Text fontWeight='bold'>Your token is: </Text>
-                <Text>{props.accessToken}</Text>
-                </Box>
+                 <Text fontSize="2xl" fontWeight='bold'>You are logged in.</Text>
+                 <Text fontWeight='bold'>Your token is: </Text>
+                  <Box maxW='sm' alignItems='center'>
+                    <Text>{props.accessToken}</Text>
+                  </Box>
                 <MyTimer expiryTimestamp={time} setIsLoggedIn={props.setIsLoggedIn}></MyTimer>
                 </VStack>
-                
+              </Grid>
             </Center>
         );
     }else{

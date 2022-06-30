@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTimer } from 'react-timer-hook';
+import { Text, VStack } from '@chakra-ui/react';
 
 function MyTimer({expiryTimestamp, setIsLoggedIn}) {
   const {
@@ -22,23 +23,23 @@ function MyTimer({expiryTimestamp, setIsLoggedIn}) {
   });
 
   return (
-    <div style={{textAlign: 'center'}}>
+          <VStack spacing={8}>
+          <Text fontWeight='bold'>It will expire in </Text>
+          <div style={{fontSize: '80px'}}>
+            <span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
+          </div>
+          </VStack>
 
-      <p>it will expire in </p>
-      <div style={{fontSize: '100px'}}>
-        <span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
-      </div>
-      {/* <p>{isRunning ? 'Running' : 'Not running'}</p> */}
-      {/* <button onClick={start}>Start</button>
-      <button onClick={pause}>Pause</button>
-      <button onClick={resume}>Resume</button>
-      <button onClick={() => {
-        // Restarts to 5 minutes timer
-        const time = new Date();
-        time.setSeconds(time.getSeconds() + 300);
-        restart(time)
-      }}>Restart</button> */}
-    </div>
+      // {/* <p>{isRunning ? 'Running' : 'Not running'}</p> */}
+      // {/* <button onClick={start}>Start</button>
+      // <button onClick={pause}>Pause</button>
+      // <button onClick={resume}>Resume</button>
+      // <button onClick={() => {
+      //   // Restarts to 5 minutes timer
+      //   const time = new Date();
+      //   time.setSeconds(time.getSeconds() + 300);
+      //   restart(time)
+      // }}>Restart</button> */}
   );
 }
 
