@@ -23,13 +23,12 @@ function MyTimer({expiryTimestamp, setIsLoggedIn}) {
   });
 
   return (
-          <VStack spacing={8}>
+        <>
           <Text fontWeight='bold'>It will expire in </Text>
           <Box fontSize='88px'>
             <Text color='teal'>{hours}:{minutes}:{seconds}</Text>
           </Box>
-          </VStack>
-
+        </>
       // {/* <p>{isRunning ? 'Running' : 'Not running'}</p> */}
       // {/* <button onClick={start}>Start</button>
       // <button onClick={pause}>Pause</button>
